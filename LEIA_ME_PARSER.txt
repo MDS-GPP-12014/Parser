@@ -1,0 +1,45 @@
+﻿
+INSTRUÇÕES PARA GERAR O BANCO DE DADOS DA APLICAÇÃO
+===================================================================================
+
+Instruções Parser:
+------------------
+
+1- Importar o projeto da pasta "Parser" a IDE.
+
+2- Se necessário, importar libs da pasta "Bibliotecas_Parser" ao projeto.
+
+3- Gerar o .jar do projeto.
+
+4- Na pasta destino do .jar, colocar a planilha com os dados com o seguinte nome:
+	"conceito_enade.xlsx"
+
+5- Comando para executar o jar: java -jar {nome_parser}.jar
+
+
+
+Como gerar o banco de dados:
+----------------------------
+
+1- Faça o download do shell do SQLite em: 
+	http://www.sqlite.org/download.html
+
+2- Coloque o shell no mesmo diretório do arquivo "dados.sql".
+
+3- Execute o shell, e então faça a seguinte sequencia de comandos:
+
+	2.1 - .open de_olho_enade
+	
+	2.2 - .read dados.sql(Aguarde a operação ser finalizada.)
+
+	2.3 - .exit
+
+
+Requisitos:
+-----------
+
+1- A planilha deve seguir a mesma formatação da planilha da pasta: "Planilha_Exemplo_2012".
+
+2- Planilha em formato .xlsx.
+
+3- Necessário Java 1.6 SE.
