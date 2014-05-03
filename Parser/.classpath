@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="C:/Users/Philco/Desktop/UnB/GPP/POI_API/poi-3.10-FINAL/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Philco/Desktop/UnB/GPP/POI_API/commons-codec-1.5/commons-codec-1.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Philco/Desktop/UnB/GPP/POI_API/dom4j-1.6.1/dom4j-1.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

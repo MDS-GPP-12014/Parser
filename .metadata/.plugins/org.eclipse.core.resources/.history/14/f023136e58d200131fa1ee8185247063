@@ -1,0 +1,17 @@
+package teste.parser;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import parser.ParserExcel;
+
+public class TestParserExcel {
+
+	@Test
+	public void testLerDadosPlanilha() {
+		
+		assertEquals(false, ParserExcel.lerDadosPlanilha());
+	}
+
+}
