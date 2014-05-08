@@ -19,6 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParserExcel {
 	
+	private static List<Integer>codAreaCurso = new ArrayList<Integer>();//0
 	private static List<String>nomeCurso = new ArrayList<String>();//1
 	private static List<Integer>codIES = new ArrayList<Integer>();//2
 	private static List<String>nomeIES = new ArrayList<String>();//3
@@ -74,9 +75,15 @@ public class ParserExcel {
 						
 						Cell celula = celulaIterator.next();
 						
-						//Posicao coluna == 1, 2, 3, 4, 5, 7, 9, 11,12, 17
+						//Posicao coluna == 0, 1, 2, 3, 4, 5, 7, 9, 11,12, 17
 						switch(posicaoColuna) {
 						
+						case 0:
+							if(celula.getCellType() == Cell.CELL_TYPE_NUMERIC)
+								codAreaCurso.add((int)celula.getNumericCellValue());
+							else
+								codAreaCurso.add(0);
+							break;
 						case 1:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
 								nomeCurso.add(celula.getStringCellValue());
@@ -160,16 +167,16 @@ public class ParserExcel {
 		String createTableInstituicao = "CREATE TABLE instituicao(cod_ies INTEGER PRIMARY KEY NOT NULL, "+
 										"org_academica TEXT, uf TEXT, nome_ies TEXT, tipo TEXT);"+"\n";
 		
-		String createTableCurso = "CREATE TABLE curso(instituicao_cod_ies INTEGER NOT NULL, "+
+		String createTableCurso = "CREATE TABLE curso(cod_area_curso INTEGER, instituicao_cod_ies INTEGER NOT NULL, "+
 								  "num_estud_curso INTEGER, num_estud_insc INTEGER, "+
 								  "nome_curso TEXT, municipio TEXT, conceito_enade REAL);"+"\n";
 		
 		String insertInstituicaoSQL = "INSERT INTO instituicao (cod_ies, org_academica, uf, "+
 						   			"nome_ies, tipo) VALUES (%d, '%s', '%s', '%s', '%s');"+"\n";
 		
-		String insertCursoSQL = "INSERT INTO curso (instituicao_cod_ies, num_estud_curso, "+
+		String insertCursoSQL = "INSERT INTO curso (cod_area_curso, instituicao_cod_ies, num_estud_curso, "+
 							"num_estud_insc, nome_curso, municipio, conceito_enade) "+ 
-							"VALUES (%d, %d, %d, '%s', '%s', %.3f);"+"\n"; 
+							"VALUES (%d, %d, %d, %d, '%s', '%s', %.3f);"+"\n"; 
 		
 		try {
 			PrintWriter writer = new PrintWriter(fileNameOut);
@@ -204,6 +211,7 @@ public class ParserExcel {
 			for(int i = 0; i < codIES.size(); i++) {
 				
 				//Escrevendo INSERT na tabela CURSO.
+				int cod_area_curso = codAreaCurso.get(i);
 				int instituicao_cod_ies = codIES.get(i);
 				int num_estud_curso = numEstudCurso.get(i);
 				int num_estud_insc = numEstudInsc.get(i);
@@ -217,7 +225,7 @@ public class ParserExcel {
 				
 				Locale local = new Locale("en");
 				
-				writer.format(local, insertCursoSQL, instituicao_cod_ies, 
+				writer.format(local, insertCursoSQL, cod_area_curso, instituicao_cod_ies, 
 							  num_estud_curso, num_estud_insc, nome, municipioCurso,
 							  conceito_enade);
 			}//Fim do for();

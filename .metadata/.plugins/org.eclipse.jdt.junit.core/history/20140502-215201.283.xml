@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="TestParserExcel" project="Parser" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="teste.parser.TestParserExcel" time="6.445">
-    <testcase name="testLerDadosPlanilha" classname="teste.parser.TestParserExcel" time="5.956"/>
-    <testcase name="testGerarArquivoSQL" classname="teste.parser.TestParserExcel" time="0.489"/>
-  </testsuite>
-</testrun>

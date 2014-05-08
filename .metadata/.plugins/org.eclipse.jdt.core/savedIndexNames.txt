@@ -3,6 +3,7 @@ INDEX VERSION 1.126+C:\Users\Philco\Desktop\UnB\GPP\_Codigo\Parser\.metadata\.pl
 1697886153.index
 388459866.index
 3289406187.index
+3463742052.index
 2497799320.index
 3133528496.index
 4041092966.index
@@ -12,8 +13,8 @@ INDEX VERSION 1.126+C:\Users\Philco\Desktop\UnB\GPP\_Codigo\Parser\.metadata\.pl
 1115467115.index
 163172794.index
 30765161.index
-1498219845.index
 3771022171.index
+1498219845.index
 3974580528.index
 4155206848.index
 1995173708.index
