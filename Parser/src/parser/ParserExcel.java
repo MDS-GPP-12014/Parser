@@ -86,7 +86,7 @@ public class ParserExcel {
 							break;
 						case 1:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								nomeCurso.add(celula.getStringCellValue());
+								nomeCurso.add(retirarAcento(celula.getStringCellValue()));
 							else
 								nomeCurso.add(".");
 							break;
@@ -94,32 +94,32 @@ public class ParserExcel {
 							codIES.add((int)celula.getNumericCellValue());
 							break;
 						case 3:
-							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								nomeIES.add(celula.getStringCellValue());
+							if(celula.getCellType() == Cell.CELL_TYPE_STRING) 
+								nomeIES.add(retirarAcento(celula.getStringCellValue()));
 							else
 								nomeIES.add(".");
 							break;
 						case 4:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								tipoIES.add(celula.getStringCellValue());
+								tipoIES.add(retirarAcento(celula.getStringCellValue()));
 							else
 								tipoIES.add(".");
 							break;
 						case 5:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								orgAcade.add(celula.getStringCellValue());
+								orgAcade.add(retirarAcento(celula.getStringCellValue()));
 							else
 								orgAcade.add(".");
 							break;
 						case 7:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								municipio.add(celula.getStringCellValue());
+								municipio.add(retirarAcento(celula.getStringCellValue()));
 							else
 								municipio.add(".");
 							break;
 						case 9:
 							if(celula.getCellType() == Cell.CELL_TYPE_STRING)
-								uf.add(celula.getStringCellValue());
+								uf.add(retirarAcento(celula.getStringCellValue()));
 							else
 								uf.add(".");
 							break;
@@ -162,21 +162,96 @@ public class ParserExcel {
 		return true;
 	}//Fim do lerDadosPlanilha().
 	
+	public static String retirarAcento(String palavra) {
+		
+		for(int i = 0; i < palavra.length(); i++) {
+			
+			if(palavra.contains("Ã")) 
+				palavra = palavra.replace("Ã", "A");
+			if(palavra.contains("ã"))
+				palavra = palavra.replace("ã", "a");
+			
+			if(palavra.contains("Â"))
+				palavra = palavra.replace("Â", "A");
+			if(palavra.contains("â"))
+				palavra = palavra.replace("â", "a");
+			
+			if(palavra.contains("À"))
+				palavra = palavra.replace("À", "A");
+			if(palavra.contains("à"))
+				palavra = palavra.replace("à", "a");
+			
+			if(palavra.contains("Á"))
+				palavra = palavra.replace("Á", "A");
+			if(palavra.contains("á"))
+				palavra = palavra.replace("á", "a");
+			
+			if(palavra.contains("É"))
+				palavra = palavra.replace("É", "E");
+			if(palavra.contains("é"))
+				palavra = palavra.replace("é", "e");
+			
+			if(palavra.contains("Ê"))
+				palavra = palavra.replace("Ê", "E");
+			if(palavra.contains("ê"))
+				palavra = palavra.replace("ê", "e");
+			
+			if(palavra.contains("Í"))
+				palavra = palavra.replace("Í", "I");
+			if(palavra.contains("í"))
+				palavra = palavra.replace("í", "i");
+			
+			if(palavra.contains("Õ")) 
+				palavra = palavra.replace("Õ", "O");
+			if(palavra.contains("õ"))
+				palavra = palavra.replace("õ", "o");
+			
+			if(palavra.contains("Ó"))
+				palavra = palavra.replace("Ó", "O");
+			if(palavra.contains("ó"))
+				palavra = palavra.replace("ó", "o");
+			
+			if(palavra.contains("Ô"))
+				palavra = palavra.replace("Ô", "O");
+			if(palavra.contains("ô"))
+				palavra = palavra.replace("ô", "o");
+			
+			if(palavra.contains("Ú"))
+				palavra = palavra.replace("Ú", "U");
+			if(palavra.contains("ú"))
+				palavra = palavra.replace("ú", "u");
+			
+			if(palavra.contains("Ç"))
+				palavra = palavra.replace("Ç", "C");
+			if(palavra.contains("ç"))
+				palavra = palavra.replace("ç", "c");
+			
+			if(palavra.contains("Ü"))
+				palavra = palavra.replace("Ü", "U");
+			if(palavra.contains("ü"))
+				palavra = palavra.replace("ü", "u");
+			
+		}
+		
+		return palavra;
+	}
+	
+	
 	public static boolean gerarArquivoSQL(String fileNameOut) {
 		
 		String createTableInstituicao = "CREATE TABLE instituicao(cod_ies INTEGER PRIMARY KEY NOT NULL, "+
-										"org_academica TEXT, uf TEXT, nome_ies TEXT, tipo TEXT);"+"\n";
+										"org_academica TEXT, nome_ies TEXT, tipo TEXT);"+"\n";
 		
 		String createTableCurso = "CREATE TABLE curso(cod_area_curso INTEGER, instituicao_cod_ies INTEGER NOT NULL, "+
 								  "num_estud_curso INTEGER, num_estud_insc INTEGER, "+
-								  "nome_curso TEXT, municipio TEXT, conceito_enade REAL);"+"\n";
+								  "nome_curso TEXT, municipio TEXT, conceito_enade REAL, uf TEXT);"+"\n";
 		
-		String insertInstituicaoSQL = "INSERT INTO instituicao (cod_ies, org_academica, uf, "+
-						   			"nome_ies, tipo) VALUES (%d, '%s', '%s', '%s', '%s');"+"\n";
+		String insertInstituicaoSQL = "INSERT INTO instituicao (cod_ies, org_academica, "+
+						   			"nome_ies, tipo) VALUES (%d, '%s', '%s', '%s');"+"\n";
 		
 		String insertCursoSQL = "INSERT INTO curso (cod_area_curso, instituicao_cod_ies, num_estud_curso, "+
-							"num_estud_insc, nome_curso, municipio, conceito_enade) "+ 
-							"VALUES (%d, %d, %d, %d, '%s', '%s', %.3f);"+"\n"; 
+							"num_estud_insc, nome_curso, municipio, conceito_enade, uf) "+ 
+							"VALUES (%d, %d, %d, %d, '%s', '%s', %.3f, '%s');"+"\n"; 
 		
 		try {
 			PrintWriter writer = new PrintWriter(fileNameOut);
@@ -195,7 +270,7 @@ public class ParserExcel {
 					
 					codIESAux.add(cod_ies);
 					String org_academica = orgAcade.get(i);
-					String ufIES = uf.get(i);
+					//String ufIES = uf.get(i);
 					String nome = nomeIES.get(i);
 					if(nome.contains("'")) {
 						String string[] = nome.split("'");
@@ -203,7 +278,7 @@ public class ParserExcel {
 					}
 					String tipo = tipoIES.get(i);
 					
-					writer.printf(insertInstituicaoSQL, cod_ies, org_academica, ufIES, nome, tipo);
+					writer.printf(insertInstituicaoSQL, cod_ies, org_academica, nome, tipo);
 					
 				}
 			}//Fim do for();
@@ -216,6 +291,7 @@ public class ParserExcel {
 				int num_estud_curso = numEstudCurso.get(i);
 				int num_estud_insc = numEstudInsc.get(i);
 				String nome = nomeCurso.get(i);
+				String ufIES = uf.get(i);
 				String municipioCurso = municipio.get(i);
 				if(municipioCurso.contains("'")) {
 					String string[] = municipioCurso.split("'");
@@ -227,7 +303,7 @@ public class ParserExcel {
 				
 				writer.format(local, insertCursoSQL, cod_area_curso, instituicao_cod_ies, 
 							  num_estud_curso, num_estud_insc, nome, municipioCurso,
-							  conceito_enade);
+							  conceito_enade, ufIES);
 			}//Fim do for();
 			
 			writer.close();		

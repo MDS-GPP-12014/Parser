@@ -17,7 +17,7 @@ public class TestParserExcel {
 	@Test
 	public void testGerarArquivoSQL() {
 		assertEquals(true, ParserExcel.gerarArquivoSQL(ParserExcel.getNomeArquivoSQL()));
-		assertEquals(false, ParserExcel.gerarArquivoSQL("\\NomeErrado//"));
+		assertEquals(false, ParserExcel.gerarArquivoSQL("_**\\NomeErrado//"));
 	}
 	
 	@Test
